@@ -4,18 +4,24 @@
 using namespace std;
 int prices[1000][1000];
 
+int cutPrice[1000][1000];
+
 int revenue(int m,int n){
+    cout << m << " " << n << endl;
+    if(cutPrice[m][n]!= -1)return cutPrice[m][n];
     if(n==0 || m==0)return 0;
-    int profit;
+    int profit = -1;
     for(int row=1; row<=m; row++){
         for(int col=1; col<=n; col++){
-            profit = max(max(profit,revenue(m-row,n) + prices[row][n]),max(profit,revenue(m,n-col)+prices[m][col]));
-        }
+           profit = max(max(prices[row][n] + revenue(m-row,n),profit),max(profit,prices[m][col]+revenue(m,n-col)));
+         }
     }
-    return profit;
+    cutPrice[m][n] = profit;
+    return cutPrice[m][n];
 }
 
 int main(){
+    memset(cutPrice,-1,sizeof(cutPrice));
     int n,m;
     cout << "Ente m and n: ";
     cin >> m >> n;
