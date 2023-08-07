@@ -7,7 +7,7 @@ int prices[1000][1000];
 int cutPrice[1000][1000];
 
 int revenue(int m,int n){
-    cout << m << " " << n << endl;
+    // cout << m << " " << n << endl;
     if(cutPrice[m][n]!= -1)return cutPrice[m][n];
     if(n==0 || m==0)return 0;
     int profit = -1;
