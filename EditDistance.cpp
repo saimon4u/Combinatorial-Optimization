@@ -6,21 +6,21 @@ using namespace std;
 #define NO_EDIT 4
 int arrow[100][100];
 void printED(char first[],char second[],int i,int j){
-    cout << first[i] << " " << second[j] << endl;
+    // cout << first[i] << " " << second[j] << endl;
     if(arrow[i][j]==NO_EDIT){
         printED(first,second,i-1,j-1);
     }
-    if(arrow[i][j]==DIAG){
+    else if(arrow[i][j]==DIAG){
         printED(first,second,i-1,j-1);
         cout << "Replace " << first[i] << " with " << second[j] << endl;
     }
-    if(arrow[i][j]==UP){
-        printED(first,second,i,j-1);
+    else if(arrow[i][j]==UP){
+        printED(first,second,i-1,j);
         cout << "Delete " << first[i] << " from first string." << endl;
     }
-    if(arrow[i][j]==SIDE){
-        printED(first,second,i-1,j);
-        cout << "Insert " << second[j] << " at positon " << i << endl;
+    else if(arrow[i][j]==SIDE){
+        printED(first,second,i,j-1);
+        cout << "Insert " << second[j] << " at positon " << (i+1) << endl;
     }
     return;
 }
@@ -62,11 +62,5 @@ int main(){
     for(int i=1; i<=m; i++)arrow[i][0] = UP; 
     for(int i=1; i<=n; i++)arrow[0][i] = SIDE; 
     printED(first,second,m,n);
-    // for(int i=0; i<=m; i++){
-    //     for(int j=0; j<=n; j++){
-    //         cout << arrow[i][j] << " ";
-    //     }
-    //     cout << endl;
-    // }
     return 0;
 }
